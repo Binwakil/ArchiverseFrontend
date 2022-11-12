@@ -1,11 +1,16 @@
+
 import './App.css';
 import {Navbar,Footer} from './components'
 import {Home,Profile,Item, Create,Login,Register} from './pages'
 import { Routes, Route } from "react-router-dom"
 import * as React from 'react';
 
-function App() {
 
+// page :::::::::::::::::
+
+
+
+function App() {
   return (
     <div>
       <Navbar />
@@ -19,6 +24,7 @@ function App() {
           </Routes>
       <Footer />
     </div>
+
   );
 }
 
