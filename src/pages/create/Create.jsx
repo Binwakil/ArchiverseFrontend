@@ -13,10 +13,6 @@ const authorization = "Basic " + btoa(projectId + ":" + projectSecret);
 
 
 const Create = () => {
-  console.log(" Project ID here " + process.env.REACT_APP_INFURA_PROJECT_ID)
-  console.log("Hereeee this    " + process.env.REACT_APP_INFURA_PROJECT_SECRET)
-  console.log("Nan this    " + projectId)
-  console.log("Chan this    " + projectSecret)
   const [designfile, setDesignfile] = useState(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -37,18 +33,6 @@ const Create = () => {
     }
   })
   
-
-  // const retrieveFile = (e) => {
-  //   const data = e.target.files[0];
-  //   const reader = new window.FileReader();
-  //   reader.readAsArrayBuffer(data);
-
-  //   reader.onloadend = () => {
-  //     setFile(Buffer(reader.result));
-  //   };
-
-  //   e.preventDefault();
-  // };
 
   let userMintNft = async () => {
 
@@ -115,8 +99,6 @@ const Create = () => {
     } catch (error) {
       console.log(error.message);
     }
-
-     
 
     form.reset();
   };
@@ -190,12 +172,9 @@ const Create = () => {
             style={{ maxWidth: "400px", margin: "15px" }}
             key={image.cid.toString() + index}
           />
-         
         ))}
       </div>
-
-    </div>
-   
+    </div>   
   )
 }
 };

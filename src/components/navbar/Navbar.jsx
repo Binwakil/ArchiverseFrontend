@@ -3,14 +3,13 @@ import './navbar.css'
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 import logo from '../../assets/logo.png'
 import {  Link } from "react-router-dom";
-
 import { isLogging, logout, login } from "./../../near/utils";
 
 const Menu = () => (
   <>
-     <Link to="/"><p>Explore</p> </Link>
-     <p>My ArchiNFTs</p>
-    
+     <Link to="/home"><p>Explore</p> </Link>
+     <Link to="/"><p>Stats</p> </Link>
+     
   </>
  )
 
@@ -44,11 +43,15 @@ const Menu = () => (
       <div className="navbar-sign">
       {isLogging() ? (
         <>
+        {"Wakili" && <Link to="/profile/rain"><p>ArchiNFTs</p></Link> }
+        {"Wakili" && <Link to="/"><p>Listing</p></Link> }
          <Link to="/create"> 
           <button type='button' className='primary-btn' >Create</button>
         </Link>
+        <Link to="/">
         {console.log("Wakili ",isLogging)}
         <button type='button' className='secondary-btn' onClick={handleLogout}>Disconnect</button>
+        </Link>
         </>
       ): (
         <>
@@ -77,19 +80,25 @@ const Menu = () => (
             <div className="navbar-menu_container-links-sign">
             {isLogging ? (
               <>
-              <Link to="/create"> 
+              {"Wakili" && <Link to="/"><p>ArchiNFTs</p></Link> }
+              {"Wakili" && <Link to="/"><p>Listing</p></Link> }
+               <Link to="/create"> 
                 <button type='button' className='primary-btn' >Create</button>
               </Link>
-              <button type='button' className='secondary-btn'>Connect</button>
+              <Link to="/">
+              {console.log("Wakili ",isLogging)}
+              <button type='button' className='secondary-btn' onClick={handleLogout}>Disconnect</button>
+              </Link>
               </>
             ): (
               <>
               <Link to="/login"> 
-              <button type='button' className='primary-btn' onClick={handleLogin} >Sign In</button>
+               <button type='button' className='primary-btn'>Sign In</button>
               </Link>
               <Link to="/register"> 
                 <button type='button' className='secondary-btn'>Sign Up</button>
               </Link>
+              <button type='button' className='primary-btn' onClick={handleLogin}>Connect</button>
               </>
             )}
            

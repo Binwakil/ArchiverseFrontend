@@ -1,51 +1,37 @@
 import React from 'react';
-import './register.css'
+import './Register.css'
 import {Link} from 'react-router-dom'
 import Image from '../../assets/Image.png'
 
 const Register = () => {
 
-  return (
-    <div className='register section__padding'>
-      <div className="register-container">
-        <h1>register</h1>
-        <p className='upload-file'>Upload Profile pic</p>
-        <div className="upload-img-show">
-          <img src={Image} alt="banner" />
-          <p>browse media on your device</p>
+    return( 
+      <div className='item section__padding'>
+        <div className="item-image">
+          <img src={item} alt="item" />
         </div>
-        <form className='register-writeForm' autoComplete='off' >
-          <div className="register-formGroup">
-            <label>Upload</label>
-            <input type="file" className='custom-file-input'
-          />
+          <div className="item-content">
+            <div className="item-content-title">
+              <h1>Abstact Smoke Red Blue</h1>
+              <p>From <span>4.5 ETH</span> ‧ 20 of 25 available</p>
+            </div>
+            <div className="item-content-creator">
+              <div><p>Creater</p></div>
+              <div>
+                <img src={creator} alt="creator" />
+                <p>Rian Leon </p>
+              </div>
+            </div>
+            <div className="item-content-detail">
+              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+            </div>
+            <div className="item-content-buy">
+              <button className="primary-btn">Buy For 4.5 ETH</button>
+              <button className="secondary-btn">Make Offer</button>
+            </div>
           </div>
-          <div className="register-formGroup">
-            <label>Full Name</label>
-            <input type="text" placeholder='Name' />
-          </div>
-          <div className="register-formGroup">
-            <label>Username</label>
-            <input type="text" placeholder='Username'  />
-          </div>
-          <div className="register-formGroup">
-            <label>Email</label>
-            <input type="email" placeholder='Email' />
-          </div>
-          <div className="register-formGroup">
-            <label>Password</label>
-            <input type="text" placeholder='Password'   />
-          </div>
-         <div className="register-button">
-          <button className='register-writeButton'>register</button>
-          <Link to="/login">
-            <button className='reg-login-writeButton' >Login</button>
-          </Link>
-         </div>
-        </form>
       </div>
-    </div>
-   )
+  )
 };
 
 export default Register;
