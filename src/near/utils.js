@@ -109,14 +109,14 @@ export async function balances () {
 
 // function for minting NFT 
 
-export let mintNFT = async (token_id, title, description, media) => {
+export let mintNFT = async (token_id, title, description, media, document) => {
     if (isLogging()) {
-
-        //get user account as reciever account
+        //get user acount as reciever account
         let receiver_id = await getAccount();
+        let extra = document
 
         //metadata object 
-        let  metadata = {title, description, media};
+        let  metadata = {title, description, media, extra};
 
         let minting = await window.contract.nft_mint(
           

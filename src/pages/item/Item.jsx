@@ -6,7 +6,6 @@ import item from '../../assets/item1.png'
 const Item = () => {
 
 
-
   return( 
       <div className='item section__padding'>
         <div className="item-image">
@@ -14,7 +13,7 @@ const Item = () => {
         </div>
           <div className="item-content">
             <div className="item-content-title">
-              <h1>Abstact Smoke Red Blue</h1>
+              <h1>Wakili NFT</h1>
               <p>From <span>4.5 ETH</span> ‧ 20 of 25 available</p>
             </div>
             <div className="item-content-creator">

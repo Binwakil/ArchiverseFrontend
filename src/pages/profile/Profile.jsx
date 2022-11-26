@@ -2,7 +2,7 @@ import React from 'react';
 import './profile.css'
 import profile_banner from '../../assets/profile_banner.png'
 import profile_pic from '../../assets/profile.jpg'
-import Bids from '../../components/bids/Bids'
+import ArchiNFTs from '../../components/archinfts/Achinfts'
 
 const Profile = () => {
 
@@ -14,7 +14,7 @@ const Profile = () => {
         </div>
         <div className="profile-pic">
             <img src={profile_pic} alt="profile" />
-            <h3>James Bond</h3>
+            <h3>ARCH. WAKILI</h3>
         </div>
       </div>
       <div className="profile-bottom">
@@ -27,7 +27,7 @@ const Profile = () => {
             <option>High to Low</option>
           </select>
         </div>
-        <Bids   title="Item" />
+        <ArchiNFTs   title="My ArchiNFTs" />
       </div>
     </div>
   );

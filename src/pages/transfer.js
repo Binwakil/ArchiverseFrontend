@@ -29,7 +29,6 @@ export let Transfer = () => {
 
     
     // function to get approved token metadata
-    
     let tokemmetadata = async () => {
 
         let  tokens_metadata = await yourToken();
@@ -38,10 +37,7 @@ export let Transfer = () => {
 
         return (token.token_id == token_id);
        })
-
        //console.log(approve_token);
-
-       
        setName(approve_token[0].metadata.title);
        setDescription(approve_token[0].metadata.description);
        setImage(approve_token[0].metadata.media);
@@ -52,13 +48,9 @@ export let Transfer = () => {
     // function for tranfering
 
     let tranfer_NFT = async () => {
-
         let receiver_id = account;
-
         if (receiver_id == '') {
-
             alert('enter account please');
-            
         } else {
 
             setTransfering(true);

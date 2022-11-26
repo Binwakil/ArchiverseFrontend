@@ -4,7 +4,7 @@
 //const CONTRACT_NAME = process.env.CONTRACT_NAME || 'wakilift.techspace.testnet';
 const keyStore = new window.nearApi.keyStores.BrowserLocalStorageKeyStore()
 
-export const CONTRACT_NAME = 'wakilift.techspace.testnet';
+export const CONTRACT_NAME = 'nft.wakili.testnet';
 
 export function getConfig (env) {
   switch (env) {

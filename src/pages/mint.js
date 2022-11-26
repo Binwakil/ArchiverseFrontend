@@ -41,9 +41,6 @@ export let Mint = () => {
     // function to mint nft :::::::::::::
 
     let userMintNft = async () => {
-
-        
-
         let file = imgurl;
         let nftName = name;
         let nftDescription = description;

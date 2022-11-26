@@ -1,24 +1,15 @@
 import React, {useEffect, useState} from "react";
 
 import  "./../../css/view.css";
-
 import { Asset } from "./../asset";
-
-
 import { Footer } from "./../footer";
-
 import { isLogging, yourToken } from "./../../near/utils";
 
 
 
 export let View = () => {
-
     let [userNFT, setUserNFT] = useState([]);
-
-
-
     // function for getting user nft 
-
     let getusernft = async() => {
 
         let gettingNFT = await yourToken()
@@ -65,13 +56,7 @@ export let View = () => {
     
                     
     
-                </section>
-    
-    
-               
-    
-                
-                
+                </section>               
     
             </section>
             <Footer></Footer>
@@ -79,7 +64,5 @@ export let View = () => {
             </>
         )
     }
-
-
     
 }

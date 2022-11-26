@@ -1,0 +1,244 @@
+
+
+.nftdetail{
+  font-size: 14px;
+  font-family: 'georgia';
+  font-weight: bold;
+  text-align: center;
+}
+
+.nfttextdiv{
+    width: 250px;
+    height: 100px;
+    object-fit: contain;
+    text-align: center;
+}
+
+.imageclass{
+  height: 200px;
+  width: 100%;
+  object-fit: contain;
+  border: 1px rgb(58, 44, 44) solid;
+}
+
+
+@media screen and (max-width: 1440px) {
+  .card-column1 {
+    width: 100%;
+    
+  }
+}
+
+
+
+#asset{
+  margin-top: 80px;
+  width: 80%;
+  margin-left: 10%;
+}
+#contract_asset{
+  border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+  margin-bottom: 70px;
+  padding-bottom: 30px;
+  padding-top: 40px;
+}
+
+#contract_asset_header{
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#contract_asset_header h2{
+  color: #fff;
+  text-transform: capitalize;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+#contract_asset_header p{
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: capitalize;
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 40px;
+}
+
+.contract_asset_container .error{
+  color: #fff;
+}
+
+
+/* company asset */
+
+.no_company_asset{
+  color: #fff;
+  margin-top: 30px;
+}
+
+.company_asset{
+  padding: 20px;
+  background-color: #0e0f10;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.asset_header{
+  display: flex;
+  justify-content: space-between;
+}
+
+.asset_header .name{
+  color: #fff;
+  font-size: 20px;
+  text-transform: capitalize;
+}
+
+.asset_header .pointer{
+  color: #059dff;
+  font-size: 20px;
+}
+
+.image_contaniner{
+  width: 100%;
+  height: 300px;
+  margin-top: 20px;
+}
+
+.image_contaniner img{
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.company_asset_name{
+  margin-top: 20px;
+}
+
+.company_asset_name h3{
+  color: #fff;
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+.company_asset_name p{
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: capitalize;
+  font-weight: 300;
+}
+
+.market_btn{
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.market_btn .market{
+  /*background-color: #059dff;*/
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  text-transform: capitalize;
+  font-size: 20px;
+}
+
+.market_btn .transfer{
+  background-color: #059dff;
+}
+
+.market_btn .aprove{
+  background-color: #144961b4;
+}
+
+.market_btn .market:hover{
+  opacity: 0.8;
+}
+
+
+/* general asset */
+
+#general_asset{
+  padding-bottom: 30px;
+}
+
+#general_asset_header{
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+#general_asset_header h2{
+  color: #fff;
+  font-size: 20px;
+  font-weight: 400;
+  text-transform: capitalize;
+}
+
+#general_asset_header button {
+  padding: 5px;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 20px 0;
+  background-color: #fd7e14;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#general_asset_header button:hover{
+  opacity: 0.7;
+}
+
+#general_asset_header p{
+  color: #fff;
+  text-transform: capitalize;
+}
+
+
+.no_expired_product{
+  text-align: center;
+}
+
+.no_expired_product p{
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+
+
+
+/*  setting media query  */
+
+
+@media only screen and (min-width: 600px) {
+
+  .contract_asset_container{
+      display: grid;
+      grid-template-columns: auto auto;
+      grid-column-gap: 10px;
+  }
+
+
+}
+
+
+
+@media only screen and (min-width: 1200px) {
+
+  .contract_asset_container{
+      display: grid;
+      grid-template-columns: auto auto auto auto;
+      grid-column-gap: 10px;
+  }
+
+  .image_contaniner{
+      height: 200px;
+     
+  }
+
+
+  
+}
