@@ -16,7 +16,7 @@ const Bids = ({title}) => {
     <div className='bids section__padding'>
       <div className="bids-container">
         <div className="bids-container-text">
-          <h1>{title}</h1>
+          <h1>Available ArchiNFTs</h1>
         </div>
         <div className="bids-container-card">
           <div className="card-column" >
@@ -134,7 +134,7 @@ const Bids = ({title}) => {
         </div>
       </div>
       <div className="load-more">
-        <button>Load More</button>
+        <button>Load More ArchiNFTs</button>
       </div>
     </div>
   )

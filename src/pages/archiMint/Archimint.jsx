@@ -37,7 +37,7 @@ let Archimint = () => {
           </div>
           <div className="register-formGroup">
             <label>Design File</label>
-            <input type="file" className='custom-file-input' name="data" onChange={retrieveFile} />
+            <input type="file" className='custom-file-input' name="data"  />
           </div>
          <div className="register-button">
           <button className='register-writeButton'>register</button>
