@@ -58,8 +58,8 @@ const Nftitem = ({product}) => {
               <p>{tokenDescription}</p>
             </div>
             <div className="item-content-buy">
-              <button className="primary-btn">Buy For 4.5 ETH</button>
-              <button className="secondary-btn">List on Marketplace</button>
+              <button className="primary-btn">Sell on Market</button>
+              <button className="secondary-btn">Transfer ArchiNFT</button>
             </div>
           </div>
       </div>

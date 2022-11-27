@@ -5,6 +5,7 @@
 const keyStore = new window.nearApi.keyStores.BrowserLocalStorageKeyStore()
 
 export const CONTRACT_NAME = 'nft.wakili.testnet';
+export const MARKET_CONTRACT_NAME = 'market.wakili.testnet';
 
 export function getConfig (env) {
   switch (env) {
