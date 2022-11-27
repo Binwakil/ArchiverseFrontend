@@ -5,7 +5,6 @@
 import { MARKET_CONTRACT_NAME, getConfig } from "./config";
 
 const nearConfig = getConfig('development');
-
 // Initialize contract & set global variables
 export async function initContract () {
   // Initialize connection to the NEAR testnet
@@ -33,11 +32,6 @@ export async function initContract () {
 }; 
 
 
-
-
-
-
-
 // function for Updating Price NFT 
 export let updatePrice = async (contract_id, token_Id, price) => {
     if (isLogging()) {
@@ -46,12 +40,10 @@ export let updatePrice = async (contract_id, token_Id, price) => {
             contract_id, 
             token_Id,
             price
-          
           },
         );
         return update_Price;
-    } else {
-    
+    } else {    
         return false;
 
     }
