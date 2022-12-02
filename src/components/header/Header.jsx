@@ -79,7 +79,7 @@ const Header = () => {
         </div>
       </div>
       <div className="header-slider">
-        <h1>Hot Bids</h1>
+        <h1>Top Architecs</h1>
        <Slider {...settings} className='slider'>
             <div className='slider-card'>
               <p className='slider-card-number'>1</p>

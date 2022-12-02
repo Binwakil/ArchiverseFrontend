@@ -2,9 +2,9 @@ import React, {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import { FaEllipsisV } from "react-icons/fa"
 
+import { isLogging, OfferPrice } from"./../near/utils";
 
-
-export let Asset = ({product}) => {
+export let Bid = ({product}) => {
 
     let {token_id, metadata} = product;
     let {title, description, media, extra} = metadata;
@@ -15,6 +15,9 @@ export let Asset = ({product}) => {
     let [tokenImage, setTokenImage] = useState('');
     let [designDoc, setdesignDoc] = useState('');
     let [nftCategory, setNftCategory] = useState('');
+    let [tokenprice, setTokenprice] = useState('');
+    let [offerPrice, setOfferPrice] = useState('');
+    let [makingoffer, setmakingoffer] = useState(false);
 
 
     useEffect(() => {
@@ -25,8 +28,25 @@ export let Asset = ({product}) => {
         setdesignDoc(extra);
     })
    
-    // console.log(designDoc)
-    // console.log(tokenImage)
+
+    let makeOffer = async () => {
+      let price = ""
+      price = prompt('Please Enter your Price')
+      setOfferPrice(price)
+      let sale_conditions = {
+        sale_conditions: price
+      };
+      let account_id = "dev-1669753500828-98611353392250";
+      setmakingoffer(true);
+      let oprice = JSON.stringify(sale_conditions)
+      let making_offer = await OfferPrice(tokenId, oprice);
+      if(making_offer)
+      {
+      alert("the NFT is approve for listing")
+      setmakingoffer(false);
+      console.log("Status " +making_offer)
+      }
+  }
 
     return(
         <div className="bids-container-card">
@@ -38,19 +58,17 @@ export let Asset = ({product}) => {
             <img className="imageclass" src={tokenImage} alt=""  />
             </Link>
             </div>
-            <div className="bids-card-bottom">
-              <p>Token ID: <span>{tokenId}</span></p><break></break>
-            </div>
+           
             <div className="nfttextdiv">
-              <p className="nftdetail">Description: <span>{tokenDescription}</span></p><break></break>
+            <div className="bids-card-bottom">
+              <p>: <span>{tokenId}</span></p>
+              <p><span>{"tokenId"}</span> Near</p><break></break>
             </div>
-              
-          <div className="register-button">
+            </div>
+        
+          <div className=" center">
           <Link to={`transfer/${tokenId}`}>
-            <button className='register-writeButton'>Transfer</button>
-            </Link>
-            <Link to={`approve/${tokenId}`}>
-              <button className='reg-login-writeButton' >Approve</button>
+            <button className='register-writeButton' onClick={() => makeOffer() }>{makingoffer ? 'Listing ........' : 'Buy Archinft'}</button>
             </Link>
           </div>
           </div>

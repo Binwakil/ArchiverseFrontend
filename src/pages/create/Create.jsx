@@ -10,30 +10,14 @@ const projectId = process.env.REACT_APP_INFURA_PROJECT_ID;
 const projectSecret = process.env.REACT_APP_INFURA_PROJECT_SECRET;
 const authorization = "Basic " + btoa(projectId + ":" + projectSecret);
 
-let autoImageArray = [
-  'https://gateway.pinata.cloud/ipfs/QmV52E9U4LP7o4twPTAwtFeT1j64BRYEwAhXY7EZRvAP3e/1.jpg',
-  'https://gateway.pinata.cloud/ipfs/QmV52E9U4LP7o4twPTAwtFeT1j64BRYEwAhXY7EZRvAP3e/2.jpg',
-  'https://gateway.pinata.cloud/ipfs/QmV52E9U4LP7o4twPTAwtFeT1j64BRYEwAhXY7EZRvAP3e/3.jpg',
-  'https://gateway.pinata.cloud/ipfs/QmV52E9U4LP7o4twPTAwtFeT1j64BRYEwAhXY7EZRvAP3e/4.jpg',
-  'https://gateway.pinata.cloud/ipfs/QmV52E9U4LP7o4twPTAwtFeT1j64BRYEwAhXY7EZRvAP3e/5.jpg',
-  'https://gateway.pinata.cloud/ipfs/QmV52E9U4LP7o4twPTAwtFeT1j64BRYEwAhXY7EZRvAP3e/6.jpg',
-  'https://gateway.pinata.cloud/ipfs/QmV52E9U4LP7o4twPTAwtFeT1j64BRYEwAhXY7EZRvAP3e/7.jpg',
-  'https://gateway.pinata.cloud/ipfs/QmV52E9U4LP7o4twPTAwtFeT1j64BRYEwAhXY7EZRvAP3e/8.jpg',
-  'https://gateway.pinata.cloud/ipfs/QmV52E9U4LP7o4twPTAwtFeT1j64BRYEwAhXY7EZRvAP3e/9.png',
-  'https://gateway.pinata.cloud/ipfs/QmV52E9U4LP7o4twPTAwtFeT1j64BRYEwAhXY7EZRvAP3e/10.png',
-  'https://gateway.pinata.cloud/ipfs/QmV52E9U4LP7o4twPTAwtFeT1j64BRYEwAhXY7EZRvAP3e/11.jpg',
-  'https://gateway.pinata.cloud/ipfs/QmV52E9U4LP7o4twPTAwtFeT1j64BRYEwAhXY7EZRvAP3e/12.jpg',
-  'https://gateway.pinata.cloud/ipfs/QmV52E9U4LP7o4twPTAwtFeT1j64BRYEwAhXY7EZRvAP3e/13.jpg'
-];
-
 
 const Create = () => {
   const [designfile, setDesignfile] = useState(null);
+  const [designfilename, setDesignfilename] = useState(null);
   const [title, setTitle] = useState(null);
   const [description, setDescription] = useState(null);
   const [category, setCategory] = useState(null);
-  const [quantity, setQuantity] = useState(null);
-  const [price, setPrice] = useState(null);
+  const [imgUrl, setImgUrl] = useState(null);
   const [design3dImage, setDesign3dImage] = useState(null);
   const [designUrl, setdesignUrl] = useState(null)
   const [design3DUrl, setdesign3DUrl] = useState(null)
@@ -57,74 +41,113 @@ const Create = () => {
     let nftName = title;
     let nftDescription = description;
     let nftCategory = category;
-    let nftQuantity = quantity;
-    let nftPrice = price;
-    console.log(nftName+nftDescription+nftQuantity+nftPrice)
+    
 
-    if (!nftName || !nftDescription  || !nftQuantity || !nftPrice) {
+    if (!nftName || !nftDescription) {
 
         alert('Kindly fill all the required  Information...');
         
     }
     else if (!nftfile || nftfile.length === 0) {
-      let randomImg = Math.floor(Math.random()*autoImageArray.length);
-      nftfile = autoImageArray[randomImg];
+      //if the User dont want Use IPFS to store the NFT image he can use an existing image URL
+        if (!imgUrl || imgUrl.length === 0) {
+            alert('Past the Image URL Since you didnt Select the NFT Image File');
+        }
+        else{
+          nftfile = imgUrl;
+        }
+     
     }
     else{
         setMint(true);
         const d = new Date();
         let token_id = d.getTime().toString();
-        let mintingNFT = await mintNFT(token_id, nftName, nftDescription, nftfile, nftdoc);
+        let mintingNFT = await mintNFT(token_id, nftName, nftDescription, nftfile, nftdoc, nftCategory);
         if (mintingNFT == '') {
             alert('NFT successfully minted');
         } else {
-            alert('error please!');
+            alert('Error! Please try again');
         }
         setMint(false);
     }
 }
+let getExtension = async (filename) => {
+  let ext = filename.split('.').pop()
+  
+  return ext
+
+}
 
   const handleSubmit = async (e) => {
+   let allowedExtensions =
+   /(\.doc|\.docx|\.pdf|\.odt)$/i;
+   let allowed3DExtensions =
+   /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+   
     e.preventDefault();
     if (!designfile || designfile.length === 0 ) {
       return alert("the Architectural Documents are not Selected");
     }
-    else if (!design3dImage || design3dImage.length === 0)
-    {
-      return alert("Kindly Select the NFT Design Document");
-    }
+  
     try {
-      const created3dfile = await ipfs.add(design3dImage);
-      const createdDesignfile = await ipfs.add(designfile);
-      const created3Durl = `https://ipfs.io/ipfs/${created3dfile.path}`;
-      const createdDesignurl = `https://ipfs.io/ipfs/${createdDesignfile.path}`;
-      console.log(created3Durl);
-      console.log(createdDesignurl)
-      setdesign3DUrl(created3Durl);
-      setdesignUrl(createdDesignurl);
-      setUrlArr((prev) => [...prev, createdDesignfile]);
-      setImages([
-        ...images,
-        {
-          cid: createdDesignfile.cid,
-          path: createdDesignfile.path,
-        },
-
-      ]);
-      console.log("URL:   https://ipfs.io/ipfs/" + images.path)
-      if (!design3dImage || design3dImage.length === 0)
+      let flag = false
+      if (!design3dImage || design3dImage.length !== 0)
       {
-        return alert("Kindly Select the NFT Design Document");
+        if (!allowed3DExtensions.exec(designfilename)) {
+          alert('Invalid 3D file type: it should be pnd or jpg or gif');
+          return false;
+          }
+          else
+          {
+            flag = true;
+            const created3dfile = await ipfs.add(design3dImage);
+            const created3Durl = `https://ipfs.io/ipfs/${created3dfile.path}`;
+            console.log(created3Durl);
+            setdesign3DUrl(created3Durl);
+          }
+      }
+      if (!designfile || designfile.length !== 0)
+      {
+        if (!allowedExtensions.exec(designfilename)) {
+          alert('Invalid Archi Document file type: it should be pdf or Docx');
+          return false;
+          }
+          else
+          {
+            const createdDesignfile = await ipfs.add(designfile);
+            const createdDesignurl = `https://ipfs.io/ipfs/${createdDesignfile.path}`;
+            console.log(createdDesignurl)
+            setdesignUrl(createdDesignurl);
+            setUrlArr((prev) => [...prev, createdDesignfile]);
+            setImages([
+              ...images,
+              {
+                cid: createdDesignfile.cid,
+                path: createdDesignfile.path,
+              },
+      
+            ]);
+          }
+     
+      }
+      if (flag === true)
+      {
+      if (!designUrl || designUrl.length !== 0 && !design3DUrl || design3DUrl.length !== 0 ){
+      userMintNft();
+      }
       }
       else
       {
-        userMintNft();
+      if (!designUrl || designUrl.length !== 0){
+          userMintNft();
       }
+
+      }
+      console.log("URL:   https://ipfs.io/ipfs/" + images.path)
+     
     } catch (error) {
       console.log(error.message);
     }
-
-    // form.reset();
   };
 
   if (isLogging()) {
@@ -132,14 +155,16 @@ const Create = () => {
   return (
     <div className='register section__padding'>
       <div className="register-container">
-        <h1>Create ArchiNFT</h1>
+        <h1>Create ArchiNFT Asset</h1>
         <form className='register-writeForm' autoComplete='off' onSubmit={handleSubmit}>
           <div className="register-formGroup">
             <label>3D Design</label>
             <input type="file" onChange={(e) => setDesign3dImage(e.target.files[0])} className='custom-file-input'/>
+            <p><span>or</span></p>
+            <input type="text" placeholder='Paste the URl' value={imgUrl} onChange={(e) => setImgUrl(e.target.value)} autoFocus={true} />
           </div>
           <div className="register-formGroup">
-            <label>Name</label>
+            <label>Title</label>
             <input type="text" placeholder='ArchiNFT Name' value={title} onChange={(e) => setTitle(e.target.value)} autoFocus={true} />
           </div>
           <div className="register-formGroup">
@@ -147,17 +172,15 @@ const Create = () => {
             <textarea type="text" rows={4} onChange={(e) => setDescription(e.target.value)} placeholder='Decription of your item' 
           ></textarea>
           </div>
-          <div className="register-formGroup">
+          {/* <div className="register-formGroup">
             <label>Price</label>
             <div className="twoForm">
               <input type="text" placeholder='Price' onChange={(e) => setPrice(e.target.value)} />
               <select>
-                <option value="ETH">ETH</option>
-                <option value="BTC">BTC</option>
-                <option value="LTC">Near</option>
+                <option value="LTC">yNEAR</option>
               </select>
             </div>
-          </div>
+          </div> */}
           <div className="register-formGroup">
             <label>Category</label>
             <select onChange={(e) => setCategory(e.target.value)} >
@@ -170,28 +193,13 @@ const Create = () => {
             </select>
           </div>
           <div className="register-formGroup">
-            <label>Available ArchiNFT</label>
-            <input type="text" placeholder='No of Items' onChange={(e) => setQuantity(e.target.value)}/>
-          </div>
-          <div className="register-formGroup">
             <label>Dcuments Upload</label>            
-            <input type="file" name ='data'  onChange={(e) => setDesignfile(e.target.files[0])}className='custom-file-input'/>
+            <input type="file" name ='data'
+              onChange={(e) =>{ setDesignfile(e.target.files[0]); setDesignfilename(e.target.files[0].name)} }className='custom-file-input'/>
           </div>
           <button type="submit" className="register-writeButton">Create</button>
         </form>
       </div>
-
-      {/* <div className="display">
-        <h3>Uploaded data</h3>
-         {images.map((image, index) => (
-          <img
-            alt={`Uploaded #${index + 1}`}
-            src={"https://ipfs.io/ipfs/" + image.path}
-            style={{ maxWidth: "400px", margin: "15px" }}
-            key={image.cid.toString() + index}
-          />
-        ))}
-      </div> */}
     </div>   
   )
 }

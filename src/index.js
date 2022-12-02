@@ -5,7 +5,7 @@ import App from './App';
 import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
 
-import { initContract } from "./near/utils";
+import { initContract } from "./near/initc";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

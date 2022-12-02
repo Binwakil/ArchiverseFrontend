@@ -7,9 +7,24 @@
   text-align: left;
 }
 
+.button{
+  width: 250px;
+  height: 50px;
+  object-fit: contain;
+  align-items: center;
+}
+
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2%;
+}
+
 .nfttextdiv{
     width: 250px;
-    height: 100px;
+    height: 50px;
     object-fit: contain;
     text-align: center;
 }

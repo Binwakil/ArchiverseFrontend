@@ -1,10 +1,11 @@
 import React from 'react';
-import './profile.css'
+import './myArchiNfts.css'
 import profile_banner from '../../assets/profile_banner.png'
 import profile_pic from '../../assets/profile.jpg'
 import ArchiNFTs from '../../components/archinfts/Achinfts'
+import { isLogging, getAccount} from "./../../near/utils";
 
-const Profile = () => {
+const MyArchiNfts = () => {
 
   return (
     <div className='profile section__padding'>
@@ -14,7 +15,7 @@ const Profile = () => {
         </div>
         <div className="profile-pic">
             <img src={profile_pic} alt="profile" />
-            <h3>ARCH. WAKILI</h3>
+            <h3>{getAccount()}</h3>
         </div>
       </div>
       <div className="profile-bottom">
@@ -33,4 +34,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default MyArchiNfts;

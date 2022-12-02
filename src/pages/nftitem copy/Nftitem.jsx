@@ -4,7 +4,7 @@ import creator from '../../assets/seller2.png'
 import item from '../../assets/item1.png'
 import { Link, useParams } from "react-router-dom";
 import { FaEllipsisV } from "react-icons/fa"
-import { isLogging, approveAccount, yourToken } from "./../../near/utils";
+import { isLogging, approveAccount, yourToken } from "../../near/utils";
 
 import { MARKET_CONTRACT_NAME} from "../../near/config";
 
@@ -17,7 +17,6 @@ const Nftitem = ({product}) => {
     let [tokenId, setTokenId] = useState('');
     let [tokenDescription, setTokenDescription] = useState('');
     let [tokenImage, setTokenImage] = useState('');
-    let [salePrice, setSalePrice] = useState('');
     let [approving, setapproving] = useState(false);
 
    // function to get approved token metadata
@@ -39,37 +38,19 @@ const Nftitem = ({product}) => {
     tokemmetadata();
   })
 
- 
 
- 
-  
   let approveListing = async () => {
-      let price = ""
-      price = prompt('Please Enter your Price')
-      setSalePrice(price)
-      let sale_conditions = {
-        sale_conditions: price
-      };
-      let account_id = "dev-1669753500828-98611353392250";
+      let account_id = MARKET_CONTRACT_NAME;
       setapproving(true);
-      let msg = JSON.stringify(sale_conditions)
-      let approving_account = await approveAccount(token_id, account_id, msg);
+      let approving_account = await approveAccount(token_id, account_id);
       if(approving_account)
       {
       alert("the NFT is approve for listing")
       setapproving(false);
-      console.log("Status " +approving)
       }
   }
-
-  let handlesaleprice = () => {
-    const enteredPrice = prompt('Please Sale Price')
-    this.setState({ enteredName : enteredPrice })
-    setSalePrice(enteredPrice)
-    approveListing()
-}
  
-  if (isLogging()) {
+
   return( 
       <div className='item section__padding'>
         <div className="item-image">
@@ -77,7 +58,7 @@ const Nftitem = ({product}) => {
         </div>
           <div className="item-content">
             <div className="item-content-title">
-              <h1>{tokenName.toUpperCase()}</h1>
+              <h1>{tokenName}</h1>
               <p><span>{tokenId}</span></p>
             </div>
             {/* <div className="item-content-creator">
@@ -97,6 +78,6 @@ const Nftitem = ({product}) => {
           </div>
       </div>
   )
-}};
+};
 
 export default Nftitem;

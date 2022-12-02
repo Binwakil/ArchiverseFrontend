@@ -1,32 +1,34 @@
 import React, {useEffect, useState} from "react";
-import './archinfts.css'
+import './salenfts.css'
 import { AiFillHeart,AiOutlineHeart } from "react-icons/ai";
 import { Link } from 'react-router-dom';
 
-import { Asset } from "../asset";
-import { isLogging, approveAccount, yourToken } from "./../../near/utils";
+import { Sale } from "../sale";
 
-const Archinfts = ({title}) => {
+// import { isLogging, yourSales, myToken } from "./../../near/market_utils";
+
+import { isLogging, approveAccount, loadSaleItemsforowner, getsalescount } from "../../near/utils";
+
+const Salenfts = ({title}) => {
   let [userNFT, setUserNFT] = useState([]);
-  
+  let [balance, setBalance] = useState();
+  // let acc = getAccount()
+  // let bal = balances()
+
 
   // console.log("Account = " +acc)
   // console.log("Bal = " +bal +"hh " +balance)
   
   // function for getting user nft 
   let getusernft = async() => {
-      let gettingNFT = await yourToken()
+      let gettingNFT = await loadSaleItemsforowner()
       setUserNFT(gettingNFT);
   }
 
-  let getbal = async() => {
-    // let bals = await balances()
-    // setBalance(bals);
-}
+  
 
   useEffect(() => {
     getusernft();
-    getbal();
   }, [isLogging])
 
   if (isLogging()) {
@@ -40,7 +42,7 @@ const Archinfts = ({title}) => {
               {
                 userNFT.map((item) => {
                 return(
-                 <Asset key={item.token_id} product={item}></Asset>
+                 <Sale key={item.token_id} product={item}></Sale>
                 ) }) 
               }
               </div>
@@ -50,4 +52,4 @@ const Archinfts = ({title}) => {
   )
 }
 }
-export default Archinfts
+export default Salenfts

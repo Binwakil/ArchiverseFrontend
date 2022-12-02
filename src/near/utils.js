@@ -1,32 +1,9 @@
 //We epxport all the functions from the ArchiNFT Smart Contract that we will use in the frontend 
-import { CONTRACT_NAME, getConfig } from "./config";
+import { CONTRACT_NAME, MARKET_CONTRACT_NAME, getConfig } from "./config";
 
 const nearConfig = getConfig('development');
 
-// Initialize contract & set global variables
-export async function initContract () {
-  // Initialize connection to the NEAR testnet
-  //const near = await connect(Object.assign({ deps: { keyStore: new keyStores.BrowserLocalStorageKeyStore() } }, nearConfig))
-  let near = await window.nearApi.connect(nearConfig);
-  // Initializing Wallet based Account. It can work with NEAR testnet wallet that
-  // is hosted at https://wallet.testnet.near.org
-  window.walletConnection = new window.nearApi.WalletConnection(near);
 
-  // Getting the Account ID. If still unauthorized, it's just empty string
-  window.account = await window.walletConnection.account()
-  // Initializing our contract APIs by contract name and configuration
-  window.contract =  new window.nearApi.Contract(
-    window.account, 
-    CONTRACT_NAME, {
-    // View methods are read only. They don't modify the state, but usually return some value.
-    viewMethods: ['nft_tokens_for_owner', 'nft_is_approved'],
-    // Change methods can modify the state. But you don't receive the returned value when called.
-    changeMethods: ['nft_mint', 'nft_transfer', 'nft_approve'],
-  })
-}; 
-
-
-// for checking if account is loging
 export const isLogging = () => {
     return window.walletConnection.isSignedIn();
 }
@@ -86,47 +63,139 @@ export let mintNFT = async (token_id, title, description, media, document) => {
         let extra = document
         //metadata object 
         let  metadata = {title, description, media, extra};
-        let minting = await window.contract.nft_mint(
-          
-          {
+        let minting  = await window.walletConnection.account().functionCall({
+          contractId: CONTRACT_NAME,
+          methodName: "nft_mint",
+          args: {
             token_id, 
             metadata,
+            gas: "300000000000000",
             receiver_id
           
           },
-          "300000000000000", // attached GAS (optional)
-          "7330000000000000000000"
-        );
-        return minting;
-        } else {
-            return false;
-        }
+           // attached GAS (optional)
+           attachedDeposit: "7330000000000000000000",
+    });
+
+    if (minting) {
+      alert("Archinft created: ");
+    } else {
+      alert("nft not created");
+    }
+    return minting;
+    } else {
+    return false;
+    }
+
+
 }
+
+//get the number of sales in the contract 
+export let getsalescount = async () => {
+  let nftTokens = await window.walletConnection
+    .account()
+    .viewFunction(MARKET_CONTRACT_NAME, "get_supply_sales");
+  return nftTokens
+  }
+
+//get the records of sales for  a given owner id
+export let loadSaleItemsforowner = async () => {
+  let nftTokens = await window.walletConnection
+    .account()
+    .viewFunction(CONTRACT_NAME, "nft_tokens", {
+      from_index: "0",
+      limit: 64,
+    });
+ 
+  let saleTokens = await window.walletConnection
+    .account()
+    .viewFunction(
+      MARKET_CONTRACT_NAME,
+      "get_sales_by_owner_id",
+      {
+        account_id: getAccount(),
+        from_index: "0",
+        limit: 64,
+      }
+    );
+  
+  let sales = [];
+
+  for (let i = 0; i < nftTokens.length; i++) {
+    const { token_id } = nftTokens[i];
+    let saleToken = saleTokens.find(({ token_id: t }) => t === token_id);
+    if (saleToken !== undefined) {
+      sales[i] = Object.assign(nftTokens[i], saleToken);
+  
+    }
+  }
+  return sales;
+};
+
+
+//get the records of sales for  a given owner id
+export let loadCSaleItems = async () => {
+  let nftTokens = await window.walletConnection
+  .account()
+  .viewFunction(CONTRACT_NAME, "nft_tokens", {
+    from_index: "0",
+    limit: 64,
+  });
+
+let saleTokens = await window.walletConnection
+  .account()
+  .viewFunction(
+    MARKET_CONTRACT_NAME,
+    "get_sales_by_nft_contract_id",
+    {
+      nft_contract_id: "nft.wakili.testnet",
+      from_index: "0",
+      limit: 64,
+    }
+  );
+
+let sales = [];
+
+for (let i = 0; i < nftTokens.length; i++) {
+  const { token_id } = nftTokens[i];
+  let saleToken = saleTokens.find(({ token_id: t }) => t === token_id);
+  if (saleToken !== undefined) {
+    sales[i] = Object.assign(nftTokens[i], saleToken);
+
+  }
+}
+return sales;
+};
 
 
 // function to fetch token owned by user
-export let yourToken = async() => {
-    if (isLogging()) {
-        //get user account as account_id account
-        let account_id = await getAccount();
-        let ownerToken = await window.contract.nft_tokens_for_owner( 
-          {
-            account_id
-        
-          }
-        );
-        return ownerToken;
-        } else {
-            return false;
-        }
-
+export const yourToken = async () => {
+  if (isLogging()) {
+  let account_id = await getAccount();
+  let nftTokens = await window.walletConnection.account()
+    .viewFunction(CONTRACT_NAME, "nft_tokens_for_owner", {
+      account_id
+    });
+    return nftTokens;
+  } else {
+    return false;
+}
+}
+//function to offer 
+export let OfferPrice = async (token_id, bid_amount) => {
+  await window.walletConnection.account().functionCall({
+    contractId: MARKET_CONTRACT_NAME, methodName: "offer",
+    args: {
+      nft_contract_id: CONTRACT_NAME,
+      token_id,
+    },
+    attachedDeposit: bid_amount,
+    gas: nearConfig.GAS,
+  })
 }
 
 
-
-
 // function to transfer token other account 
-
 export let transferToken = async ( receiver_id,  token_id) => {
     if (isLogging()) {
         let transfertNft = await window.contract.nft_transfer( 
@@ -143,17 +212,37 @@ export let transferToken = async ( receiver_id,  token_id) => {
         }
 }
 
+export let storagedeposite = async (account_id) => {
+  if (isLogging()) {
+      let paystorage = await window.contract.nft_approve( 
+        {
+          account_id,
+        },
+        "300000000000000", // attached GAS (optional)
+        "1000000000000000000000000"
+        //"9330000000000000000000
+      );
+      return paystorage;
+      } else {
+          return false;
+      }
+}
+
 // function for approving other account to transfer token on behalf
-export let approveAccount = async (token_id, account_id) => {
+export let approveAccount = async (token_id, account_id, msg) => {
     if (isLogging()) {
-        let approvingotherAccount = await window.contract.nft_approve( 
-          {
+     // storagedeposite(account_id);
+        let approvingotherAccount = await await window.walletConnection.account().functionCall({
+          contractId: CONTRACT_NAME,
+          methodName: "nft_approve",
+          args: {
             token_id,
-            account_id
+            account_id,
+            msg
           },
-          "300000000000000", // attached GAS (optional)
-          "590000000000000000000"
-        );
+         // "300000000000000", // attached GAS (optional)
+         attachedDeposit: "1000000000000000000000000",
+    });
         return approvingotherAccount;
         } else {
             return false;

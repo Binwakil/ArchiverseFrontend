@@ -7,8 +7,8 @@ import { isLogging, logout, login } from "./../../near/utils";
 
 const Menu = () => (
   <>
-     <Link to="/home"><p>Explore</p> </Link>
-     <Link to="/"><p>Stats</p> </Link>
+     <Link to="/"><p>Explore</p> </Link>
+     <Link to="/Stats"><p>Stats</p> </Link>
      
   </>
  )
@@ -43,8 +43,8 @@ const Menu = () => (
       <div className="navbar-sign">
       {isLogging() ? (
         <>
-        {"Wakili" && <Link to="/profile/rain"><p>ArchiNFTs</p></Link> }
-        {"Wakili" && <Link to="/"><p>Listing</p></Link> }
+        {"Wakili" && <Link to="/myArchiNfts/Wakili"><p>ArchiNFTs</p></Link> }
+        {"Wakili" && <Link to="myListing/wakili"><p>Listing</p></Link> }
          <Link to="/create"> 
           <button type='button' className='primary-btn' >Create</button>
         </Link>
@@ -80,15 +80,15 @@ const Menu = () => (
             <div className="navbar-menu_container-links-sign">
             {isLogging ? (
               <>
-              {"Wakili" && <Link to="/"><p>ArchiNFTs</p></Link> }
-              {"Wakili" && <Link to="/"><p>Listing</p></Link> }
-               <Link to="/create"> 
-                <button type='button' className='primary-btn' >Create</button>
-              </Link>
-              <Link to="/">
-              {console.log("Wakili ",isLogging)}
-              <button type='button' className='secondary-btn' onClick={handleLogout}>Disconnect</button>
-              </Link>
+                {"Wakili" && <Link to="/myArchiNfts/Wakili"><p>ArchiNFTs</p></Link> }
+                {"Wakili" && <Link to="myListing/wakili"><p>Listing</p></Link> }
+                <Link to="/create"> 
+                  <button type='button' className='primary-btn' >Create</button>
+                </Link>
+                <Link to="/">
+                {console.log("Wakili ",isLogging)}
+                <button type='button' className='secondary-btn' onClick={handleLogout}>Disconnect</button>
+                </Link>
               </>
             ): (
               <>
