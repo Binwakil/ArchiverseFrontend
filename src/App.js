@@ -16,7 +16,6 @@ function App() {
       <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path=":item/:id" element={<Item />} />
             <Route path="/create" element={<Create /> } />
             <Route path="/myArchiNfts/:id" element={<MyArchiNfts />} />
             <Route path="/myListing/:id" element={<MyListing />} />

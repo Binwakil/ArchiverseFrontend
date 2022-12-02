@@ -45,14 +45,14 @@ export let Asset = ({product}) => {
               <p className="nftdetail">Description: <span>{tokenDescription}</span></p><break></break>
             </div>
               
-          <div className="register-button">
+          {/* <div className="register-button">
           <Link to={`transfer/${tokenId}`}>
             <button className='register-writeButton'>Transfer</button>
             </Link>
             <Link to={`approve/${tokenId}`}>
               <button className='reg-login-writeButton' >Approve</button>
             </Link>
-          </div>
+          </div> */}
           </div>
         </div>
         </div>

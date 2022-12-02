@@ -2,11 +2,11 @@ import React, {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import { FaEllipsisV } from "react-icons/fa"
 
-import { isLogging, OfferPrice } from"./../near/utils";
+import { getAccount, isLogging, OfferPrice } from"./../near/utils";
 
 export let Bid = ({product}) => {
 
-    let {token_id, metadata} = product;
+    let {token_id, metadata, owner_id, sale_conditions} = product;
     let {title, description, media, extra} = metadata;
 
     let [tokenName, setTokenName] = useState('');
@@ -17,7 +17,9 @@ export let Bid = ({product}) => {
     let [nftCategory, setNftCategory] = useState('');
     let [tokenprice, setTokenprice] = useState('');
     let [offerPrice, setOfferPrice] = useState('');
+    let [ownerid, setownerid] = useState('');
     let [makingoffer, setmakingoffer] = useState(false);
+    let account_id = getAccount();
 
 
     useEffect(() => {
@@ -26,20 +28,21 @@ export let Bid = ({product}) => {
         setTokenDescription(description);
         setTokenImage(media);
         setdesignDoc(extra);
+        setTokenprice(sale_conditions);
+        setownerid(owner_id);
     })
    
 
     let makeOffer = async () => {
       let price = ""
-      price = prompt('Please Enter your Price')
+      price = prompt('Please Enter your Offer Price')
       setOfferPrice(price)
       let sale_conditions = {
-        sale_conditions: price
+        sale_conditions: offerPrice
       };
-      let account_id = "dev-1669753500828-98611353392250";
       setmakingoffer(true);
       let oprice = JSON.stringify(sale_conditions)
-      let making_offer = await OfferPrice(tokenId, oprice);
+      let making_offer = await OfferPrice(tokenId, price+"000000000000000000000000");
       if(making_offer)
       {
       alert("the NFT is approve for listing")
@@ -49,30 +52,35 @@ export let Bid = ({product}) => {
   }
 
     return(
-        <div className="bids-container-card">
+      <div className="bids-container-card">
         <div className="card-column1" >
           <div className="bids-card">
             <div className="bids-card-top">
-            <Link to={`/Nftitem/${tokenId}`}>
-            <p className="bids-title">{tokenName.toUpperCase()}</p>
-            <img className="imageclass" src={tokenImage} alt=""  />
-            </Link>
+                <p className="bids-title">{tokenName.toUpperCase()}</p>
+                <img className="imageclass" src={tokenImage} alt="" />
             </div>
-           
             <div className="nfttextdiv">
-            <div className="bids-card-bottom">
-              <p>: <span>{tokenId}</span></p>
-              <p><span>{"tokenId"}</span> Near</p><break></break>
+              <div className="bids-card-bottom">
+                <p><span>{tokenId}</span></p>
+                <p>Price : <span>{tokenprice + " "}</span> Near</p>
+              </div>
             </div>
-            </div>
-        
-          <div className=" center">
-          <Link to={`transfer/${tokenId}`}>
-            <button className='register-writeButton' onClick={() => makeOffer() }>{makingoffer ? 'Listing ........' : 'Buy Archinft'}</button>
-            </Link>
-          </div>
+            {
+              owner_id === account_id?
+              <div className=" center">
+                <button className='reg-login-writeButton' >You Own this</button>
+              </div>
+              :
+              <div className=" center">
+                <button className='register-writeButton' onClick={() => makeOffer()}>{makingoffer ? 'Buying ........' : 'Buy Archinft'}</button>
+              </div>
+            }
+                <div className="bids-card-bottom">
+                <p><span>Owner: </span>{owner_id}</p>
+              </div>
           </div>
         </div>
-        </div>
+      </div>
+          
     )
-}
+  }

@@ -9,10 +9,10 @@ import { isLogging, approveAccount, loadCSaleItems } from "./../../near/utils";
 const Bids = ({title}) => {
   let [userNFT, setUserNFT] = useState([]);
 
-
   let getusernft = async() => {
     let gettingNFT = await loadCSaleItems()
     setUserNFT(gettingNFT);
+    console.log(gettingNFT)
 }
 
 let getbal = async() => {

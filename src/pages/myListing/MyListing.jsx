@@ -3,37 +3,10 @@ import './myListing.css'
 import { Link, useParams } from "react-router-dom";
 
 import profile_banner from '../../assets/profile_banner.png'
-import profile_pic from '../../assets/profile.jpg'
+import profile_pic from '../../assets/Image.png'
 import Salenfts from '../../components/salenfts/Salenfts'
 
 const MyListing = ({product}) => {
-  //let {token_id} = useParams();
-    // let [tokenName, setTokenName] = useState('');
-    // let [tokenId, setTokenId] = useState('');
-    // let [tokenDescription, setTokenDescription] = useState('');
-    // let [tokenImage, setTokenImage] = useState('');
-    // let [approving, setapproving] = useState(false);
-
-  //  // function to get approved token metadata
-  //  let tokemmetadata = async () => {
-  //   let  tokens_metadata = await yourToken();
-  //  let approve_token = tokens_metadata.filter((token) => {
-  //   return (token.token_id == token_id);
-  //  })
-  
-
-  //  setTokenName(approve_token[0].metadata.title);
-  //  setTokenDescription(approve_token[0].metadata.description);
-  //  setTokenImage(approve_token[0].metadata.media);
-  //  setTokenId(token_id)
-
-  // }
-
-  // useEffect(() => {
-  //   tokemmetadata();
-  // })
-
-
   return (
     <div className='profile section__padding'>
       <div className="profile-top">

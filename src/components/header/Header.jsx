@@ -3,12 +3,6 @@ import './header.css'
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import seller1 from '../../assets/seller1.jpg'
-import seller2 from '../../assets/seller2.png'
-import seller3 from '../../assets/seller3.png'
-import seller4 from '../../assets/seller4.png'
-import seller5 from '../../assets/seller5.png'
-import seller6 from '../../assets/seller6.jpg'
 import verify from '../../assets/verify.png'
 import coin from '../../assets/coin.png'
 import { Link  } from 'react-router-dom';
@@ -78,7 +72,7 @@ const Header = () => {
           <img className='shake-vertical' src={coin} alt="" />
         </div>
       </div>
-      <div className="header-slider">
+      {/* <div className="header-slider">
         <h1>Top Architecs</h1>
        <Slider {...settings} className='slider'>
             <div className='slider-card'>
@@ -148,7 +142,7 @@ const Header = () => {
               <p className='slider-card-price'>3.548 <span>ETH</span></p>
             </div>
         </Slider>
-      </div>
+      </div> */}
     </div>
   )
 }

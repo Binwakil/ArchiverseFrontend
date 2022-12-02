@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import './nftitem.css'
-import creator from '../../assets/seller2.png'
+import creator from '../../assets/Image.png'
 import item from '../../assets/item1.png'
 import { Link, useParams } from "react-router-dom";
 import { FaEllipsisV } from "react-icons/fa"

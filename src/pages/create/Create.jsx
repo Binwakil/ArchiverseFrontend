@@ -19,6 +19,7 @@ const Create = () => {
   const [category, setCategory] = useState(null);
   const [imgUrl, setImgUrl] = useState(null);
   const [design3dImage, setDesign3dImage] = useState(null);
+  const [design3dImageName, setDesign3dImageName] = useState(null);
   const [designUrl, setdesignUrl] = useState(null)
   const [design3DUrl, setdesign3DUrl] = useState(null)
 
@@ -82,7 +83,7 @@ let getExtension = async (filename) => {
    let allowedExtensions =
    /(\.doc|\.docx|\.pdf|\.odt)$/i;
    let allowed3DExtensions =
-   /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+   /(\.jpg|\.jpeg|\.png|\.gif|\.webp)$/i;
    
     e.preventDefault();
     if (!designfile || designfile.length === 0 ) {
@@ -93,7 +94,7 @@ let getExtension = async (filename) => {
       let flag = false
       if (!design3dImage || design3dImage.length !== 0)
       {
-        if (!allowed3DExtensions.exec(designfilename)) {
+        if (!allowed3DExtensions.exec(design3dImageName)) {
           alert('Invalid 3D file type: it should be pnd or jpg or gif');
           return false;
           }
@@ -159,7 +160,7 @@ let getExtension = async (filename) => {
         <form className='register-writeForm' autoComplete='off' onSubmit={handleSubmit}>
           <div className="register-formGroup">
             <label>3D Design</label>
-            <input type="file" onChange={(e) => setDesign3dImage(e.target.files[0])} className='custom-file-input'/>
+            <input type="file" onChange={(e) => {setDesign3dImage(e.target.files[0]); setDesign3dImageName(e.target.files[0].name)} } className='custom-file-input'/>
             <p><span>or</span></p>
             <input type="text" placeholder='Paste the URl' value={imgUrl} onChange={(e) => setImgUrl(e.target.value)} autoFocus={true} />
           </div>

@@ -74,7 +74,7 @@ export let mintNFT = async (token_id, title, description, media, document) => {
           
           },
            // attached GAS (optional)
-           attachedDeposit: "7330000000000000000000",
+           attachedDeposit: "73300000000000000000",
     });
 
     if (minting) {
@@ -184,16 +184,55 @@ export const yourToken = async () => {
 //function to offer 
 export let OfferPrice = async (token_id, bid_amount) => {
   await window.walletConnection.account().functionCall({
-    contractId: MARKET_CONTRACT_NAME, methodName: "offer",
+    contractId: MARKET_CONTRACT_NAME, 
+    methodName: "offer",
     args: {
       nft_contract_id: CONTRACT_NAME,
-      token_id,
+      token_id: token_id
     },
     attachedDeposit: bid_amount,
-    gas: nearConfig.GAS,
+    gas: "300000000000000",
   })
 }
 
+// const OfferPrice = async (token_id) => {
+//   await walletConnection.account().functionCall({
+//     contractId: nearConfig.marketContractName,
+//     methodName: "offer",
+//     args: {
+//       nft_contract_id: nearConfig.contractName,
+//       token_id,
+//     },
+//     attachedDeposit: parseNearAmount(values.assetBid),
+//     gas: nearConfig.GAS,
+//   })
+// }
+
+//function to Remove ArchiNFT from Sales
+export let UpdatePrice = async (token_id, price) => {
+  await window.walletConnection.account().functionCall({
+    contractId: MARKET_CONTRACT_NAME, methodName: "update_price",
+    args: {
+        nft_contract_id: CONTRACT_NAME,
+        token_id: token_id,
+        price: price,
+    },
+    attachedDeposit: "1000000000000000000000000",
+    gas: "300000000000000"
+  })
+}
+
+//function to Remove ArchiNFT from Sales
+export let RevokeSale = async (token_id, account_id) => {
+  await window.walletConnection.account().functionCall({
+    contractId: CONTRACT_NAME, methodName: "nft_revoke",
+    args: {
+      token_id,
+      account_id,
+    },
+    attachedDeposit: "1000000000000000000000000",
+  })
+}
 
 // function to transfer token other account 
 export let transferToken = async ( receiver_id,  token_id) => {
