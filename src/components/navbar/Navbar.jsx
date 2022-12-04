@@ -55,19 +55,12 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            {/* <Link to="/login"> 
-         <button type='button' className='primary-btn'>Sign In</button>
-        </Link>
-        <Link to="/register"> 
-          <button type='button' className='secondary-btn'>Sign Up</button>
-        </Link> */}
             <button type='button' className='primary-btn' onClick={handleLogin}>Connect</button>
           </>
         )}
-
-
-
       </div>
+
+      
       <div className="navbar-menu">
         {toggleMenu ?
           <RiCloseLine color="#fff" size={27} onClick={() => setToggleMenu(false)} />
