@@ -55,12 +55,12 @@ const Menu = () => (
         </>
       ): (
         <>
-        <Link to="/login"> 
+        {/* <Link to="/login"> 
          <button type='button' className='primary-btn'>Sign In</button>
         </Link>
         <Link to="/register"> 
           <button type='button' className='secondary-btn'>Sign Up</button>
-        </Link>
+        </Link> */}
         <button type='button' className='primary-btn' onClick={handleLogin}>Connect</button>
         </>
       )}
@@ -92,12 +92,12 @@ const Menu = () => (
               </>
             ): (
               <>
-              <Link to="/login"> 
+              {/* <Link to="/login"> 
                <button type='button' className='primary-btn'>Sign In</button>
               </Link>
               <Link to="/register"> 
                 <button type='button' className='secondary-btn'>Sign Up</button>
-              </Link>
+              </Link> */}
               <button type='button' className='primary-btn' onClick={handleLogin}>Connect</button>
               </>
             )}

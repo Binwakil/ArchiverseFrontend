@@ -247,6 +247,19 @@ export let RemoveSale = async (token_id, account_id) => {
   })
 }
 
+
+export const isAproved = async (token_id) => {
+  if (isLogging()) {
+  let isapprove = await window.walletConnection.account()
+    .viewFunction(CONTRACT_NAME, "nft_is_approved", {
+      token_id,
+      approved_account_id: MARKET_CONTRACT_NAME
+    });
+    return isapprove;
+  } 
+}
+
+
 // function to transfer token other account 
 export let transferToken = async ( receiver_id,  token_id) => {
     if (isLogging()) {

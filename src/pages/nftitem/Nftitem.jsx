@@ -4,7 +4,7 @@ import creator from '../../assets/Image.png'
 import item from '../../assets/item1.png'
 import { Link, useParams } from "react-router-dom";
 import { FaEllipsisV } from "react-icons/fa"
-import { isLogging, approveAccount, yourToken } from "./../../near/utils";
+import { isLogging, approveAccount, yourToken, isAproved } from "./../../near/utils";
 
 import { MARKET_CONTRACT_NAME } from "../../near/config";
 const CryptoJS = require('crypto-js');
@@ -22,6 +22,8 @@ const Nftitem = ({ product }) => {
   let [salePrice, setSalePrice] = useState('');
   let [designdoc, setdesigndoc] = useState('');
   let [approving, setapproving] = useState(false);
+
+  let [selling, setselling] = useState('');
 
   // function to get approved token metadata
   let tokemmetadata = async () => {
@@ -73,6 +75,14 @@ const Nftitem = ({ product }) => {
     approveListing()
   }
  
+  let isselling = async () => {
+  let isapproveselling  = await isAproved(token_id);
+  setselling(isapproveselling)
+  }
+
+  let a = isselling();
+  console.log(selling)
+
   const openInNewTab = url => {
     window.open(url, '_blank', 'noopener,noreferrer');
   };
@@ -95,7 +105,12 @@ const Nftitem = ({ product }) => {
           <p>{designdoc}</p>
         </div>
         <div className="item-content-buy">
-          <button className="primary-btn" onClick={() => approveListing()}>{approving ? 'Listing ........' : 'Sell on Market'}</button>
+          {
+            selling === false ?
+              <button className="primary-btn" onClick={() => approveListing()}>{approving ? 'Listing ........' : 'Sell on Market'}</button>
+              :
+              <button className="primary-btn" disabled>Selling</button>
+          }
           <button className="secondary-btn" onClick={() => openInNewTab(designdoc)}>View Archi Document</button>
         </div>
       </div>

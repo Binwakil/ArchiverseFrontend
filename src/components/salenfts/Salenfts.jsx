@@ -23,6 +23,8 @@ const Salenfts = ({title}) => {
   let getusernft = async() => {
       let gettingNFT = await loadSaleItemsforowner()
       setUserNFT(gettingNFT);
+
+      console.log(gettingNFT)
   }
 
   
