@@ -9,6 +9,8 @@ import { isLogging, mintNFT } from "./../../near/utils";
 const projectId = process.env.REACT_APP_INFURA_PROJECT_ID;
 const projectSecret = process.env.REACT_APP_INFURA_PROJECT_SECRET;
 const authorization = "Basic " + btoa(projectId + ":" + projectSecret);
+const CryptoJS = require('crypto-js');
+
 
 
 const Create = () => {
@@ -27,6 +29,22 @@ const Create = () => {
   const [images, setImages] = useState([])
 
   let [mint, setMint] = useState(false)
+
+  let message = "café";
+  let key = "something";
+
+  let encrypted = CryptoJS.AES.encrypt(message, key);
+  //equivalent to CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(message), key);
+  let decrypted = CryptoJS.AES.decrypt(encrypted, key);
+
+
+  const encryptDoc = (text) => {
+    return CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(text));
+  };
+
+  const decryptDoc = (data) => {
+    return CryptoJS.enc.Base64.parse(data).toString(CryptoJS.enc.Utf8);
+  };
 
   const ipfs = ipfsHttpClient({
     url: "https://ipfs.infura.io:5001/api/v0",
@@ -63,6 +81,8 @@ const Create = () => {
         setMint(true);
         const d = new Date();
         let token_id = d.getTime().toString();
+        let encryptedDoc = encryptDoc(nftdoc)
+        console.log(encryptDoc)
         let mintingNFT = await mintNFT(token_id, nftName, nftDescription, nftfile, nftdoc, nftCategory);
         if (mintingNFT == '') {
             alert('NFT successfully minted');

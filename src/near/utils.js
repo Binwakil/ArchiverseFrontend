@@ -74,7 +74,9 @@ export let mintNFT = async (token_id, title, description, media, document) => {
           
           },
            // attached GAS (optional)
-           attachedDeposit: "73300000000000000000",
+           attachedDeposit: "9470000000000000000000",
+           
+           
     });
 
     if (minting) {
@@ -217,7 +219,7 @@ export let UpdatePrice = async (token_id, price) => {
         token_id: token_id,
         price: price,
     },
-    attachedDeposit: "1000000000000000000000000",
+    attachedDeposit: "1",
     gas: "300000000000000"
   })
 }
@@ -230,7 +232,18 @@ export let RevokeSale = async (token_id, account_id) => {
       token_id,
       account_id,
     },
-    attachedDeposit: "1000000000000000000000000",
+    attachedDeposit: "1",
+  })
+}
+
+export let RemoveSale = async (token_id, account_id) => {
+  await window.walletConnection.account().functionCall({
+    contractId: MARKET_CONTRACT_NAME, methodName: "remove_sale",
+    args: {
+      nft_contract_id: CONTRACT_NAME,
+      token_id,
+    },
+    attachedDeposit: "1",
   })
 }
 
