@@ -23,9 +23,8 @@ let getbal = async() => {
 useEffect(() => {
   getusernft();
   getbal();
-}, [isLogging])
+},)
 
-if (isLogging()) {
   return (
     <div className='bids section__padding'>
     <div className="bids-container">
@@ -44,7 +43,6 @@ if (isLogging()) {
   
   </div>
 )
-}
 }
 
 export default Bids

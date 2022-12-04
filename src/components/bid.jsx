@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import { FaEllipsisV } from "react-icons/fa"
 
-import { getAccount, isLogging, OfferPrice } from"./../near/utils";
+import { getAccount, isLogging, login, OfferPrice} from"./../near/utils";
 
 export let Bid = ({product}) => {
 
@@ -49,38 +49,55 @@ export let Bid = ({product}) => {
       setmakingoffer(false);
       console.log("Status " +making_offer)
       }
-  }
 
-    return(
-      <div className="bids-container-card">
-        <div className="card-column1" >
-          <div className="bids-card">
-            <div className="bids-card-top">
-                <p className="bids-title">{tokenName.toUpperCase()}</p>
-                <img className="imageclass" src={tokenImage} alt="" />
+      
+  }
+  let handleLogin = async () => {
+    login()
+  }
+  return (
+    <div className="bids-container-card">
+      <div className="card-column1" >
+        <div className="bids-card">
+          <div className="bids-card-top">
+            <p className="bids-title">{tokenName.toUpperCase()}</p>
+            <img className="imageclass" src={tokenImage} alt="" />
+          </div>
+          <div className="nfttextdiv">
+            <div className="bids-card-bottom">
+              <p><span>{tokenId}</span></p>
+              <p>Price : <span>{tokenprice + " "}</span> Near</p>
             </div>
-            <div className="nfttextdiv">
-              <div className="bids-card-bottom">
-                <p><span>{tokenId}</span></p>
-                <p>Price : <span>{tokenprice + " "}</span> Near</p>
-              </div>
-            </div>
-            {
-              owner_id === account_id?
-              <div className=" center">
-                <button className='reg-login-writeButton' >You Own this</button>
+          </div>
+
+          {
+            isLogging() ?
+
+            <div>
+                {
+                  owner_id === account_id ?
+                    <div className=" center">
+                      <button className='reg-login-writeButton' >You Own this</button>
+                    </div>
+                    :
+                    <div className=" center">
+                      <button className='register-writeButton' onClick={() => makeOffer()}>{makingoffer ? 'Buying ........' : 'Buy Archinft'}</button>
+                    </div>
+                }
               </div>
               :
               <div className=" center">
-                <button className='register-writeButton' onClick={() => makeOffer()}>{makingoffer ? 'Buying ........' : 'Buy Archinft'}</button>
+                <button className='register-writeButton' onClick={() => handleLogin()}>Connect Wallet</button>
               </div>
-            }
-                <div className="bids-card-bottom">
-                <p><span>Owner: </span>{owner_id}</p>
-              </div>
+
+              
+          }
+          <div className="bids-card-bottom">
+            <p><span>Owner: </span>{owner_id}</p>
           </div>
         </div>
       </div>
+    </div>
           
     )
   }
