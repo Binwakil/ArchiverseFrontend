@@ -67,7 +67,7 @@ const Create = () => {
         alert('Kindly fill all the required  Information...');
         
     }
-    else if (!nftfile || nftfile.length === 0) {
+   if (!nftfile || nftfile.length === 0) {
       //if the User dont want Use IPFS to store the NFT image he can use an existing image URL
         if (!imgUrl || imgUrl.length === 0) {
             alert('Past the Image URL Since you didnt Select the NFT Image File');
@@ -84,7 +84,7 @@ const Create = () => {
         let encryptedDoc = encryptDoc(nftdoc)
         console.log(encryptDoc)
         let mintingNFT = await mintNFT(token_id, nftName, nftDescription, nftfile, nftdoc, nftCategory);
-        if (mintingNFT == '') {
+        if (mintingNFT) {
             alert('NFT successfully minted');
         } else {
             alert('Error! Please try again');
@@ -112,7 +112,7 @@ let getExtension = async (filename) => {
   
     try {
       let flag = false
-      if (!design3dImage || design3dImage.length !== 0)
+      if (design3dImage || design3dImage.length !== 0)
       {
         if (!allowed3DExtensions.exec(design3dImageName)) {
           alert('Invalid 3D file type: it should be pnd or jpg or gif');
@@ -127,7 +127,7 @@ let getExtension = async (filename) => {
             setdesign3DUrl(created3Durl);
           }
       }
-      if (!designfile || designfile.length !== 0)
+      if (designfile || designfile.length !== 0)
       {
         if (!allowedExtensions.exec(designfilename)) {
           alert('Invalid Archi Document file type: it should be pdf or Docx');
