@@ -70,7 +70,7 @@ const Create = () => {
    if (!nftfile || nftfile.length === 0) {
       //if the User dont want Use IPFS to store the NFT image he can use an existing image URL
         if (!imgUrl || imgUrl.length === 0) {
-            alert('Past the Image URL Since you didnt Select the NFT Image File');
+            return false
         }
         else{
           nftfile = imgUrl;
