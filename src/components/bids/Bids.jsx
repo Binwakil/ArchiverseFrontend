@@ -29,7 +29,7 @@ useEffect(() => {
     <div className='bids section__padding'>
     <div className="bids-container">
     <div className="bids-container-text">
-        <h1>Archi MarketPlace</h1>
+        <h1>Archiverse MarketPlace</h1>
       </div>    
     <div className="contract_asset_container">
             {
